@@ -1,0 +1,113 @@
+---
+import Bolt from "./bolt.astro"
+import SidebarButton from "./sidebar-button.astro"
+import KeyboardButton from "./keyboard-button.astro"
+
+import { conditions } from "virtual:os/conditions"
+
+import FakeBrick from "../assets/fake-brick.png"
+
+export type Props = {
+    active: "bio" | "projects" | "travel" | "music" | "notes" | "note-id"
+}
+
+const menuItems = [
+    conditions.isBioEnabled ?  { href: "/", label: "bio" } : null,
+    conditions.isProjectsEnabled ?  { href: "/projects", label: "projects" } : null,
+    conditions.isTravelEnabled ? { href: "/travel", label: "travel" } : null,
+    conditions.isMusicEnabled ? { href: "/music", label: "music" } : null,
+    conditions.isNotesEnabled ?  { href: "/notes", label: "notes" } : null,
+].filter(Boolean)
+
+const { active } = Astro.props
+---
+
+<div class="sidebar rounded-md outline-offset-4 flex w-full">
+    <div class="rounded-md p-[2px] -translate-y-1 flex w-full">
+        <div class="rounded-sm shadow-steal-inner-shadow backdrop-blur-sm flex w-full">
+            <div class="flex p-2 gap-2 w-full" style={`background-image: url("${FakeBrick.src}")`}>
+                <div class="flex flex-col justify-between">
+                    <Bolt />
+                    <Bolt />
+                </div>
+                <div class="flex-1 flex flex-col gap-4 py-8 relative">
+                    {
+                        menuItems.map(({ href, label }) => (
+                            <SidebarButton href={href} isActive={active === label}>{label}</SidebarButton>
+                        ))
+                    }
+                    <div class="absolute w-full" style="bottom: 5%; right: 0;">
+                        <div class="flex flex-col gap-2 items-center">
+                            <div class="flex gap-2 items-center">
+                                <KeyboardButton key="shift">shift</KeyboardButton>
+                                <div id="plus-shift-s">+</div>
+                                <KeyboardButton key="s">s</KeyboardButton>
+                            </div>
+                            <div id="kbd-scrollbar-hint" class="text-zcool">show scrollbar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-between">
+                    <Bolt />
+                    <Bolt />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sidebar {
+        background-image: linear-gradient(to right, var(--os-sidebar-border-from), var(--os-sidebar-border-to));
+        color: var(--os-sidebar-text-color);
+    }
+
+    .sidebar > div {
+        background-color: var(--os-sidebar-background-color);
+        border: 1px solid var(--os-sidebar-border);
+    }
+
+    .sidebar > div > div {
+        background-color: var(--os-sidebar-inner-background-color);
+        border: 1px solid var(--os-sidebar-inner-border);
+    }
+    
+    .plus-shift-s {
+        color: white;
+    }
+</style>
+
+<script>
+    let isScrollbarHidden = localStorage.getItem("isScrollbarHidden") === "true"
+
+    const elOverflowXs = document.getElementsByClassName("overflow-x-auto")
+    const elOverflowYs = document.getElementsByClassName("overflow-y-auto")
+
+    const elKbdScrollbarHint = document.getElementById("kbd-scrollbar-hint")
+
+    const toggleScrollbar = (collection: HTMLCollectionOf<Element>) => {
+        for (let i = 0; i < collection.length; i++) {
+            const el = collection[i]
+            if (el) el.classList.toggle("hidden-scrollbar")
+        }
+    }
+
+    const enableDisableScrollbar = (isScrollbarStateToggled = true) => {
+        toggleScrollbar(elOverflowXs)
+        toggleScrollbar(elOverflowYs)
+
+        if (isScrollbarStateToggled) isScrollbarHidden = !isScrollbarHidden
+        if (elKbdScrollbarHint) {
+            elKbdScrollbarHint.innerText = isScrollbarHidden ? "show scrollbar" : "hide scrollbar"
+        }
+
+        localStorage.setItem("isScrollbarHidden", isScrollbarHidden.toString())
+    }
+
+    // show scroll bar on page load, if it was hidden
+    if (!isScrollbarHidden) {
+        enableDisableScrollbar(false)
+    }
+
+    window.addEventListener("toggle-scrollbar", () => enableDisableScrollbar())
+</script>

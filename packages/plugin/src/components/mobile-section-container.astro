@@ -1,0 +1,21 @@
+---
+export type Props = {
+    className?: string
+}
+
+const { className } = Astro.props
+---
+
+<div class:list={["p-1 rounded-2xl shadow footer-icon", className]}>
+    <div class="rounded-xl p-2 transition-all group overflow-hidden deep-inner-shadow h-full" style="background-color: white;">
+        <slot />
+    </div>
+</div>
+
+
+
+<style>
+	.container {
+        background-image: linear-gradient(to right, var(#c3c1bf), var(#fff));
+    }
+</style>

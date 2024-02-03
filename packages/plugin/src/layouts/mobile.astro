@@ -1,0 +1,55 @@
+---
+    import { getCollection } from "astro:content";
+
+    import SocialIcon from "../components/social-icon.astro";
+    import MobileSectionContainer from "../components/mobile-section-container.astro";
+
+    import Img from "../components/img.astro"
+    import A from "../components/a.astro"
+
+    import { user } from "virtual:os/user-config"
+
+    const [bio] = await getCollection('bio');
+    const { Content } = await bio?.render()
+---
+
+<div class="absolute left-0 top-0 w-full flex flex-col gap-2 h-full">
+    <div class="flex gap-2">
+        <img src={user.avatar} class="shadow rounded-xl flex-1" style="height: 180px;" />
+        <div class="flex flex-col gap-2">
+            <div class="flex gap-2" style="justify-content: end;">
+                <SocialIcon type="twitter" />
+                <SocialIcon type="linkedin" />
+                <SocialIcon type="github" />
+            </div>
+            <MobileSectionContainer className="flex-1">
+                <div class="flex flex-col justify-between h-full">
+                    <div class="text-zcool">
+                        {user.name}
+                    </div>
+                    <div>
+                        {user.description}
+                    </div>
+                </div>
+            </MobileSectionContainer>
+        </div>
+    </div>
+    <MobileSectionContainer className="flex-1 mb-2">
+        <div class="p-2">
+            <div class="flex justify-between mb-4" style="color: rgb(111, 111, 111);">
+                <div>{user.coords?.name}</div>
+                <div style="padding-left: 10px; border-left: 2px solid #eaeaea;">bio</div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <Content components={{ img: Img, a: A }} />
+            </div>
+        </div>
+    </MobileSectionContainer>
+</div>
+
+<style>
+    .card-section {
+        border: 3px solid #e2e8f0;
+    }
+</style>
