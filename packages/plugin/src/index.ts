@@ -8,51 +8,51 @@ const resolveVirtualModuleId = (id: string) => `\0${id}`;
 
 export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
   return {
-    name: "@builder/astro",
+    name: "@builder-os/astro",
     hooks: {
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
         if (osConfig.isBioEnabled) {
           injectRoute({
             pattern: "/",
-            entrypoint: "@builder/astro/bio.astro",
+            entrypoint: "@builder-os/astro/bio.astro",
           });
         }
 
         if (osConfig.isProjectsEnabled) {
           injectRoute({
             pattern: "/projects",
-            entrypoint: "@builder/astro/projects.astro",
+            entrypoint: "@builder-os/astro/projects.astro",
           });
         }
 
         if (osConfig.travel) {
           injectRoute({
             pattern: "/travel",
-            entrypoint: "@builder/astro/travel.astro",
+            entrypoint: "@builder-os/astro/travel.astro",
           });
         }
 
         if (osConfig.isMusicEnabled) {
           injectRoute({
             pattern: "/api/spotify",
-            entrypoint: "@builder/astro/api/spotify.astro",
+            entrypoint: "@builder-os/astro/api/spotify.astro",
           });
 
           injectRoute({
             pattern: "/music",
-            entrypoint: "@builder/astro/music.astro",
+            entrypoint: "@builder-os/astro/music.astro",
           });
         }
 
         if (osConfig.isNotesEnabled) {
           injectRoute({
             pattern: "/notes",
-            entrypoint: "@builder/astro/notes.astro",
+            entrypoint: "@builder-os/astro/notes.astro",
           });
 
           injectRoute({
             pattern: "/notes/[slug]",
-            entrypoint: "@builder/astro/notes/[...slug].astro",
+            entrypoint: "@builder-os/astro/notes/[...slug].astro",
           });
         }
 

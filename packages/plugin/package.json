@@ -1,5 +1,5 @@
 {
-  "name": "@builder/astro",
+  "name": "@builder-os/astro",
   "main": "src/index.ts",
   "version": "0.0.1",
   "license": "MIT",
@@ -37,5 +37,8 @@
     "./music.astro": "./src/pages/music.astro",
     "./notes.astro": "./src/pages/notes/index.astro",
     "./notes/[...slug].astro": "./src/pages/notes/[...slug].astro"
+  },
+  "dependencies": {
+    "astro": "^4.3.2"
   }
 }

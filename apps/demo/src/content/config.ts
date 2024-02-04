@@ -5,7 +5,7 @@ import {
   projectSchema,
   notesSchema,
   travelSchema,
-} from "@builder/astro";
+} from "@builder-os/astro";
 
 export const collections = {
   bio: defineCollection({

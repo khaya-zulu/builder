@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import osPlugin from "@builder/astro";
+import osPlugin from "@builder-os/astro";
 
 import mdx from "@astrojs/mdx";
 
