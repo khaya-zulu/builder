@@ -10,7 +10,7 @@ try {
     const resp = await fetch("http://localhost:4321/api/spotify")
     data = await resp.json()
 } catch (e) {
-    console.log(e)
+    console.log("/api/spotify error:", e)
 }
 
 const isEmpty = Object.keys(data).length === 0
