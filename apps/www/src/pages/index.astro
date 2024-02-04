@@ -5,8 +5,13 @@ import Workspace3 from "../assets/workspace-3.jpg"
 
 import Layout from '../layouts/Layout.astro';
 
-const resp = await fetch(`${import.meta.env.WWW_BASE_URL}/showcase.json`);
-const { data } = await resp.json() as { data: { name: string, url: string, src: string }[]};
+let data = [] as { name: string, url: string, src: string }[];
+try {
+	const resp = await fetch(`${import.meta.env.WWW_BASE_URL}/showcase.json`);
+	data = (await resp.json()).data;
+} catch(err: any) {
+	console.log("/showcase.json error", err.message)
+}
 ---
 
 <Layout title="Welcome to Astro." navigateTo="motivation">
