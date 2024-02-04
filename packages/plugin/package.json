@@ -3,7 +3,7 @@
   "main": "src/index.ts",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "",
+  "description": "An Astro plugin for developers/hackers to build their personal site",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/khaya-zulu/builder/issues"
   },
-  "homepage": "https://github.com/khaya-zulu/builder#readme",
+  "homepage": "https://https://builderos.dev",
   "peerDependencies": {
     "astro": "^4.3.2"
   },
