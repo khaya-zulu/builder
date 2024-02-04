@@ -1,9 +1,13 @@
 ---
+import { Picture } from "astro:assets"
+
 import Workspace1 from "../assets/workspace-1.jpg"
 import Workspace2 from "../assets/workspace-2.jpg"
 import Workspace3 from "../assets/workspace-3.jpg"
 
 import Layout from '../layouts/Layout.astro';
+
+import Tape from "../assets/tape.png"
 
 let data = [] as { name: string, url: string, src: string }[];
 try {
@@ -19,24 +23,30 @@ try {
 	<div class="columns-1 md:columns-2 mt-2">
 		{
 			data.map((d) => (
-				<div class="break-inside-avoid py-2 even:h-96">
-					<a href={d.url} rel="noopener noreferrer">
+				<div class="break-inside-avoid py-2 relative">
+					<a href={d.url} rel="noopener noreferrer" class="even:h-96">
+						<div class="h-16 w-1/2 absolute bottom-10 left-5">
+							<Picture src={Tape} alt="tape" class=" group-hover:rotate-1" />
+							<div class="h-16 absolute top-0 left-10 text-zcool w-1/2 flex items-center">
+								<div>{d.name}</div>
+							</div>
+						</div>
 						<img src={d.src} class="h-96 object-cover w-full rounded-3xl shadow-sm border-2 border-transparent hover:border-orange-500 transition-colors duration-300" />
 					</a>
 				</div>
 			))
 		}
-		<div class="break-inside-avoid py-2">
+		<div class="break-inside-avoid py-2 hidden md:block">
 			<div class="rounded-3xl overflow-hidden border-4">
 				<img src={Workspace1.src} alt="workspace 1 example" class="h-64 blur-[2px] brightness-50 object-cover w-full" />
 			</div>
 		</div>
-		<div class="break-inside-avoid py-2">
+		<div class="break-inside-avoid py-2 hidden md:block">
 			<div class="rounded-3xl overflow-hidden border-4">
 				<img src={Workspace2.src} alt="workspace 1 example" class="h-64 blur-[2px] brightness-50 object-cover w-full" />
 			</div>
 		</div>
-		<div class="break-inside-avoid py-2">
+		<div class="break-inside-avoid py-2 hidden md:block">
 			<div class="rounded-3xl overflow-hidden border-4">
 				<img src={Workspace3.src} alt="workspace 1 example" class="h-96 blur-[2px] brightness-50 object-cover w-full" />
 			</div>
