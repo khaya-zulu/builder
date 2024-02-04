@@ -5,8 +5,13 @@ import PlayIcon from "./icons/play.astro"
 import ArrowUpRight from "./icons/arrow-up-right.astro"
 import PauseIcon from "./icons/pause.astro"
 
-const resp = await fetch("http://localhost:4321/api/spotify")
-const data = await resp.json()
+let data = {};
+try {
+    const resp = await fetch("http://localhost:4321/api/spotify")
+    data = await resp.json()
+} catch (e) {
+    console.log(e)
+}
 
 const isEmpty = Object.keys(data).length === 0
 ---

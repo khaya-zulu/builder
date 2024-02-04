@@ -4,6 +4,8 @@ export const prerender = true
 import Layout from "../../layouts/layout.astro"
 import CaretIcon from "../../components/icons/caret.astro"
 
+import { formatDate } from "../../lib/utils"
+
 import { getCollection, type CollectionEntry } from "astro:content"
 
 export async function getStaticPaths() {
@@ -34,8 +36,8 @@ const { Content } = await render();
                 </a>
             </div>
 
-            <div class="text-zcool mb-2">The Cultural Significance of Greenhouses</div>
-            <div class="text-sm text-slate-600">21 May 2021</div>
+            <div class="text-zcool mb-2">{data.title}</div>
+            <div class="text-sm text-slate-600">{formatDate(data.publishedAt)}</div>
 
             <img src={data.cover} class="h-36 w-5/6 rounded object-cover mt-8 shadow-sm" />
         </div>

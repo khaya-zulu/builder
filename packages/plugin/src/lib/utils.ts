@@ -20,3 +20,12 @@ export const sortByOrder = (a: any, b: any) => {
   }
   return 0;
 };
+
+// Tuesday, 04 Feb
+export const formatDate = (date: Date) => {
+  const day = date.toLocaleString("default", { day: "2-digit" });
+  const month = date.toLocaleString("default", { month: "short" });
+  const dayOfWeek = date.toLocaleString("default", { weekday: "long" });
+
+  return `${dayOfWeek}, ${day} ${month}`;
+};

@@ -8,51 +8,51 @@ const resolveVirtualModuleId = (id: string) => `\0${id}`;
 
 export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
   return {
-    name: "@os",
+    name: "@builder/astro",
     hooks: {
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
         if (osConfig.isBioEnabled) {
           injectRoute({
             pattern: "/",
-            entrypoint: "@khaya-os/src/pages/bio.astro",
+            entrypoint: "@builder/astro/bio.astro",
           });
         }
 
         if (osConfig.isProjectsEnabled) {
           injectRoute({
             pattern: "/projects",
-            entrypoint: "@khaya-os/src/pages/projects.astro",
+            entrypoint: "@builder/astro/projects.astro",
           });
         }
 
         if (osConfig.travel) {
           injectRoute({
             pattern: "/travel",
-            entrypoint: "@khaya-os/src/pages/travel.astro",
+            entrypoint: "@builder/astro/travel.astro",
           });
         }
 
         if (osConfig.isMusicEnabled) {
           injectRoute({
             pattern: "/api/spotify",
-            entrypoint: "@khaya-os/src/pages/api/spotify.ts",
+            entrypoint: "@builder/astro/api/spotify.astro",
           });
 
           injectRoute({
             pattern: "/music",
-            entrypoint: "@khaya-os/src/pages/music.astro",
+            entrypoint: "@builder/astro/music.astro",
           });
         }
 
         if (osConfig.isNotesEnabled) {
           injectRoute({
             pattern: "/notes",
-            entrypoint: "@khaya-os/src/pages/notes/index.astro",
+            entrypoint: "@builder/astro/notes.astro",
           });
 
           injectRoute({
             pattern: "/notes/[slug]",
-            entrypoint: "@khaya-os/src/pages/notes/[...slug].astro",
+            entrypoint: "@builder/astro/notes/[...slug].astro",
           });
         }
 

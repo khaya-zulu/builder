@@ -1,6 +1,7 @@
 ---
-    import dayjs from "dayjs"
     import { user } from "virtual:os/user-config"
+
+    import { formatDate } from "../lib/utils"
     
     const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${user.coords.lat}&lon=${user.coords.long}&appid=${import.meta.env.OPEN_WEATHER_API_KEY}&units=metric`)
     const data = await resp.json()
@@ -10,7 +11,7 @@
 
 <div class="flex justify-between px-10">
     <div class="flex gap-3">
-        <div class="text-sm">{dayjs().format('dddd, DD MMM')}</div>
+        <div class="text-sm">{formatDate(new Date())}</div>
         <div class="text-sm">
             {weather ? <>{weather?.temp}<span class="text-primary">°</span></> : null}
             {user.coords?.name}

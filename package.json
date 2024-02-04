@@ -1,5 +1,5 @@
 {
-  "name": "builder-os",
+  "name": "@builder",
   "private": true,
   "scripts": {
     "build": "turbo build",
