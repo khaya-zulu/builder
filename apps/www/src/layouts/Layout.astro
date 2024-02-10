@@ -35,7 +35,7 @@ const { title, navigateTo = "motivation" } = Astro.props;
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
-	<body style={`background-image: url("${Paper.src}")`}>
+	<body class="overflow-x-hidden" style={`background-image: url("${Paper.src}")`}>
 		<main class="max-w-4xl p-10 mx-auto">
 			<Installation client:visible />
 
@@ -59,10 +59,10 @@ const { title, navigateTo = "motivation" } = Astro.props;
 					<a class="underline w-20 text-center" href={navigateTo === "motivation" ? "/motivation" : "/"}>{navigateTo}</a>
 				</div>
 
-				<Image src={AstroSvg} alt="Astro logo" class="w-10 h-10 absolute top-10 left-20 animate-float" />
-				<Image src={SpotifySvg} alt="Spotify logo" class="w-16 h-16 absolute bottom-10 right-20 animate-float-1" />
-				<Image src={Workspace2} alt="Workspace" class="w-14 h-14 absolute -top-10 right-40 delay-75 border-4 animate-float shadow-2xl rounded-md" />
-				<Image src={JHB} alt="Workspace" class:list={["w-14 h-14 absolute -bottom-20 left-20 delay-200 duration-[20s] border-4 animate-float-2 shadow-2xl rounded-md"]} />
+				<Image src={AstroSvg} alt="Astro logo" class="w-10 h-10 absolute -left-14 top-10 md:left-20 animate-float" />
+				<Image src={SpotifySvg} alt="Spotify logo" class="w-16 h-16 absolute -right-10 md:bottom-10 md:right-20 animate-float-1" />
+				<Image src={Workspace2} alt="Workspace" class="w-14 h-14 absolute right-5 -top-20 md:-top-10 md:right-40 delay-75 border-4 animate-float shadow-2xl rounded-md" />
+				<Image src={JHB} alt="Johannesburg" class="w-14 h-14 absolute -bottom-20 left-20 delay-200 duration-[20s] border-4 animate-float-2 shadow-2xl rounded-md" />
 			</div>
 
 			<slot />
