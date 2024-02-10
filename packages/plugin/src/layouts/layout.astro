@@ -32,7 +32,7 @@ const { title, active = "bio", ogImage, ogTitle, ogDescription } = Astro.props a
 		<title>{title}</title>
 		<meta property="og:image" content={ogImage ?? page?.ogImage} />
 		<meta property="og:description" content={ogDescription ?? page?.ogDescription} />
-		<meta property="og:title" content={ogTitle ?? page?.ogTitle} />
+		<meta property="og:title" content={ogTitle ?? page?.ogTitle ?? title} />
 	</head>
 	<body>
 		<!-- Mobile view -->
