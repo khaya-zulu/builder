@@ -7,7 +7,7 @@ export const GET: APIRoute = async () => {
 
   return new Response(
     JSON.stringify({
-      type: data.currently_playing_type,
+      type: data?.currently_playing_type,
       payload: data
         ? {
             songCover: data?.item?.album?.images[0]?.url,

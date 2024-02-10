@@ -1,7 +1,7 @@
 {
   "name": "@builder-os/astro",
   "main": "src/index.ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "An Astro plugin for developers/hackers to build their personal site",
   "scripts": {
