@@ -1,8 +1,16 @@
 ---
 import { ViewTransitions } from "astro:transitions"
+import { Image } from "astro:assets"
 
 import Discord from "../components/icons/Discord.astro";
 import Github from "../components/icons/Github.astro";
+
+import AstroSvg from "../assets/astro.svg";
+import SpotifySvg from "../assets/spotify.svg"
+import BookSvg from "../assets/book.svg"
+import BookmarkSvg from "../assets/book-bookmark.svg"
+import Workspace2 from "../assets/workspace-2.jpg"
+import JHB from "../assets/jhb.jpg"
 
 import { Installation } from "../components/installation"
 
@@ -20,7 +28,7 @@ const { title, navigateTo = "motivation" } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="The internet profile for developers." />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -30,20 +38,31 @@ const { title, navigateTo = "motivation" } = Astro.props;
 	<body style={`background-image: url("${Paper.src}")`}>
 		<main class="max-w-4xl p-10 mx-auto">
 			<Installation client:visible />
-	
-			<h1 class="text-6xl text-zcool text-center">BuilderOS</h1>
-			<p class="mt-3 text-center">The internet profile for developers everywhere.</p>
-	
-			<div class="flex mx-auto gap-4 items-center w-full justify-center mt-6">
-				<a href="" rel="noopener noreferrer" target="_blank" class="rounded-full bg-gradient-to-br from-[#f0ccb9] to-[#ffba92] hover:to-[#f0ccb9] hover:from-[#ffba92] px-6 py-3 flex gap-4 items-center">
-					<Discord className='w-5 h-5' />
-					Discord
-				</a>
-				<a href="" rel="noopener noreferrer" target="_blank">
-					<Github className="w-5 h-5" />
-				</a>
-				<div class="h-5 w-[1px] bg-slate-400" />
-				<a class="underline w-20 text-center" href={navigateTo === "motivation" ? "/motivation" : "/"}>{navigateTo}</a>
+
+			<div class="relative">
+				<h1 class="text-6xl text-zcool text-center">BuilderOS</h1>
+				<p class="mt-3 text-center">The internet profile for <span class="bg-black text-white px-1">developers.</span></p>
+		
+				<div class="flex mx-auto gap-4 items-center w-full justify-center mt-6">
+					<div class="relative group rounded-full">
+						<Image src={BookSvg} alt="Astro logo" class="w-8 h-8 rotate-6 absolute -bottom-5 right-10 group-hover:hidden" />
+						<Image src={BookmarkSvg} alt="Astro logo" class="w-8 h-8 rotate-[186deg] absolute -bottom-5 right-10 hidden group-hover:block" />
+						<a href="" rel="noopener noreferrer" target="_blank" class="rounded-full relative bg-gradient-to-br from-[#f0ccb9] to-[#ffba92] hover:to-[#f0ccb9] hover:from-[#ffba92] px-6 py-3 flex gap-4 items-center">
+							<Discord className='w-5 h-5' />
+							Discord
+						</a>
+					</div>
+					<a href="" rel="noopener noreferrer" target="_blank">
+						<Github className="w-5 h-5" />
+					</a>
+					<div class="h-5 w-[1px] bg-slate-400" />
+					<a class="underline w-20 text-center" href={navigateTo === "motivation" ? "/motivation" : "/"}>{navigateTo}</a>
+				</div>
+
+				<Image src={AstroSvg} alt="Astro logo" class="w-10 h-10 absolute top-10 left-20 animate-float" />
+				<Image src={SpotifySvg} alt="Spotify logo" class="w-16 h-16 absolute bottom-10 right-20 animate-float-1" />
+				<Image src={Workspace2} alt="Workspace" class="w-14 h-14 absolute -top-10 right-40 delay-75 border-4 animate-float shadow-2xl rounded-md" />
+				<Image src={JHB} alt="Workspace" class:list={["w-14 h-14 absolute -bottom-20 left-20 delay-200 duration-[20s] border-4 animate-float-2 shadow-2xl rounded-md"]} />
 			</div>
 
 			<slot />

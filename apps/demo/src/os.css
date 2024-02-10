@@ -12,7 +12,7 @@ body {
 
   --os-footer-icon-background-color: #000;
 
-  --os-sidebar-button-color: #767676;
+  --os-sidebar-button-active-text-color: #767676;
 
   /* sidebar */
   --os-sidebar-inner-border: #c8c3c0;
@@ -50,7 +50,7 @@ body {
 
   --os-footer-icon-background-color: #000;
 
-  --os-sidebar-button-color: #fff;
+  --os-sidebar-button-active-text-color: #fff;
 
   /* sidebar */
   --os-sidebar-border-from: #050100;

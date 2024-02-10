@@ -23,8 +23,12 @@
   "peerDependencies": {
     "astro": "^4.3.2"
   },
+  "dependencies": {
+    "astro": "^4.3.2"
+  },
   "devDependencies": {
-    "typescript": "latest"
+    "typescript": "latest",
+    "@changesets/cli": "latest"
   },
   "type": "module",
   "exports": {
@@ -37,8 +41,5 @@
     "./music.astro": "./src/pages/music.astro",
     "./notes.astro": "./src/pages/notes/index.astro",
     "./notes/[...slug].astro": "./src/pages/notes/[...slug].astro"
-  },
-  "dependencies": {
-    "astro": "^4.3.2"
   }
 }

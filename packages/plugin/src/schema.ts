@@ -37,13 +37,16 @@ export const notesSchema = z.object({
 });
 
 export const osConfigSchema = z.object({
-  page: z.object({
-    ogTitle: z.string().optional(),
-    ogDescription: z.string().optional(),
-    ogImage: z.string().optional(),
-    faviconPath: z.string().optional().default("/favicon.svg"),
-    faviconType: z.string().optional().default("image/svg+xml"),
-  }),
+  page: z
+    .object({
+      ogTitle: z.string().optional(),
+      ogDescription: z.string().optional(),
+      ogImage: z.string().optional(),
+      faviconPath: z.string().optional().default("/favicon.svg"),
+      faviconType: z.string().optional().default("image/svg+xml"),
+    })
+    .optional()
+    .default({ faviconPath: "/favicon.svg", faviconType: "image/svg+xml" }),
   user: z.object({
     background: z
       .object({
@@ -71,7 +74,8 @@ export const osConfigSchema = z.object({
       wishlist: z.array(z.object({ name: z.string(), isChecked: z.boolean() })),
       isWishlistEnabled: z.boolean().default(true),
     })
-    .optional(),
+    .optional()
+    .default({ wishlist: [], isWishlistEnabled: true }),
   isTravelEnabled: z.boolean().optional(),
   isMusicEnabled: z.boolean().optional(),
   isNotesEnabled: z.boolean().optional(),

@@ -6,9 +6,10 @@ import CaretIcon from "../../components/icons/caret.astro"
 
 import { formatDate } from "../../lib/utils"
 
-import { getCollection, type CollectionEntry } from "astro:content"
+import { getCollection } from "astro:content"
 
 export async function getStaticPaths() {
+    // @ts-ignore
     const notes = await getCollection("notes")
 
     return notes.map((note: any) => ({
@@ -17,16 +18,14 @@ export async function getStaticPaths() {
     }))
 }
 
-export type Props = CollectionEntry<"notes">
-
 const { data, render } = Astro.props;
 
 const { Content } = await render();
 ---
 
-<Layout {...{ title: data.title }} active="note-id">
-    <div class="h-full bg-white rounded mb-1 border-[3px] flex gap-6 border-[#e5e7eb] p-10 w-full">
-        <div class="flex-1">
+<Layout title={data.title} active="note-id" ogImage={data.cover} ogTitle={data.title}>
+    <div class="h-full bg-white rounded border-[3px] flex gap-6 border-[#e5e7eb] p-10 w-full">
+        <div class="flex-1 max-w" style="max-width: 20rem;">
             <div>
                 <a class="inline-block" href="/notes">
                     <div class="mb-4 border border-slate-300/80 flex px-3 gap-1 py-1 text-sm items-center text-slate-600 rounded-full">
@@ -47,6 +46,6 @@ const { Content } = await render();
         ]}>
             <Content />
         </div>
-        <div class="flex-1" />
+        <div class="flex-1" style="max-width: 20rem;" />
     </div>
 </Layout>

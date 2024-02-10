@@ -5,15 +5,19 @@ import PlayIcon from "./icons/play.astro"
 import ArrowUpRight from "./icons/arrow-up-right.astro"
 import PauseIcon from "./icons/pause.astro"
 
-let data = {};
+let spotify: any = {};
 try {
-    const resp = await fetch("http://localhost:4321/api/spotify")
-    data = await resp.json()
+    const resp = await fetch(`${Astro.url.origin}/api/spotify`)
+    const data = await resp.json()
+
+    if (data.type === "track") {
+        spotify = data.payload
+    }
 } catch (e) {
     console.log("/api/spotify error:", e)
 }
 
-const isEmpty = Object.keys(data).length === 0
+const isEmpty = Object.keys(spotify).length === 0
 ---
 
 {
@@ -28,18 +32,18 @@ const isEmpty = Object.keys(data).length === 0
             <div class="flex flex-col relative flex-1 z-[2]">
                 <img
                     id="song-cover"
-                    src={data?.songCover}
+                    src={spotify?.songCover}
                     class:list={[
                         "w-[5rem] h-[5rem] object-cover rounded-md transition-[filter] shadow mx-auto mb-4 shadow-md",
                     ]}
                     alt="cover image"
                 />
-                <div id="song-name" class="text-center text-zcool px-5 truncate w-60 mx-auto">{data?.songName}</div>
-                <div id="song-artists" class="text-center text-slate-700 truncate w-60 mx-auto">{data?.songArtists?.join(", ")}</div>
+                <div id="song-name" class="text-center text-zcool px-5 truncate w-60 mx-auto">{spotify?.songName}</div>
+                <div id="song-artists" class="text-center text-slate-700 truncate w-60 mx-auto">{spotify?.songArtists?.join(", ")}</div>
                 <div class="w-2/3 mt-8 mx-auto">
                     <div class="flex justify-between text-sm">
-                        <div id="progress" _progress={data?.progress} _isPlaying={data?.isPlaying} />
-                        <div id="duration" _duration={data?.duration} />
+                        <div id="progress" _progress={spotify?.progress} _isPlaying={spotify?.isPlaying} />
+                        <div id="duration" _duration={spotify?.duration} />
                     </div>
                     <div class="h-1 mt-2 rounded-full bg-slate-400 mx-auto progress">
                         <div id="progress-bar" class="h-full w-0 rounded-full bg-slate-500"></div>
@@ -50,7 +54,7 @@ const isEmpty = Object.keys(data).length === 0
                     <div class="flex gap-3 items-center">
                         <PlayPause className="w-5 h-5 -scale-100 mt-1" />
                         <div class="w-12 h-12 rounded-full play flex items-center justify-center shadow-sm">
-                            {data?.isPlaying ? <PauseIcon className="w-6 h-6" /> : <PlayIcon />}
+                            {spotify?.isPlaying ? <PauseIcon className="w-6 h-6" /> : <PlayIcon />}
                         </div>
                         <PlayPause className="w-5 h-5" />
                     </div>
@@ -117,26 +121,32 @@ const isEmpty = Object.keys(data).length === 0
         elProgress.innerHTML = `${analogTime(progress)}`
         elDuration.innerHTML = `${analogTime(duration)}`
 
+        let uiUpdateRetryCount = 0
+
         const updateUI = async () => {
-            const resp = await fetch("http://localhost:4321/api/spotify")
-            const data = await resp.json()
+            const resp = await fetch(`${window.origin}/api/spotify`)
+            const spotify = await resp.json()
 
-            elSongCover.src = data?.songCover
-            elSongName.innerHTML = data?.songName
-            elSongArtists.innerHTML = data?.songArtists?.join(", ")
+            elSongCover.src = spotify?.songCover
+            elSongName.innerHTML = spotify?.songName
+            elSongArtists.innerHTML = spotify?.songArtists?.join(", ")
 
-            elDuration.innerHTML = `${analogTime(data.duration)}`
-            progress = data.progress
+            elDuration.innerHTML = `${analogTime(spotify.duration)}`
+            progress = spotify.progress
             elProgress.innerHTML = `${analogTime(progress)}`
 
-            animateEl(elProgressBar, { width: [`${(progress / duration) * 100}%`, "100%"] }, { duration: duration - progress })
+            const animateDuration = duration - progress
+            animateEl(elProgressBar, { width: [`${(progress / duration) * 100}%`, "100%"] }, { duration: animateDuration < 0 ? 0 : animateDuration})
+
+            uiUpdateRetryCount = 0
         }
 
         setInterval(() => {
             progress += 1000
             elProgress.innerHTML = `${analogTime(progress)}`
 
-            if (progress >= duration) {
+            if (progress >= duration && uiUpdateRetryCount <= 3) {
+                uiUpdateRetryCount += 1
                 updateUI()
             }
         }, 1000)

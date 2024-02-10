@@ -2,37 +2,39 @@ import type { AstroIntegration } from "astro";
 
 export * from "./schema.ts";
 
-import type { OSConfig } from "./schema.ts";
+import { type OSConfig, osConfigSchema } from "./schema.ts";
 
 const resolveVirtualModuleId = (id: string) => `\0${id}`;
 
 export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
+  const parsedConfig = osConfigSchema.parse(osConfig);
+
   return {
     name: "@builder-os/astro",
     hooks: {
       "astro:config:setup": ({ injectRoute, updateConfig }) => {
-        if (osConfig.isBioEnabled) {
+        if (parsedConfig.isBioEnabled) {
           injectRoute({
             pattern: "/",
             entrypoint: "@builder-os/astro/bio.astro",
           });
         }
 
-        if (osConfig.isProjectsEnabled) {
+        if (parsedConfig.isProjectsEnabled) {
           injectRoute({
             pattern: "/projects",
             entrypoint: "@builder-os/astro/projects.astro",
           });
         }
 
-        if (osConfig.travel) {
+        if (parsedConfig.travel) {
           injectRoute({
             pattern: "/travel",
             entrypoint: "@builder-os/astro/travel.astro",
           });
         }
 
-        if (osConfig.isMusicEnabled) {
+        if (parsedConfig.isMusicEnabled) {
           injectRoute({
             pattern: "/api/spotify",
             entrypoint: "@builder-os/astro/api/spotify.astro",
@@ -44,7 +46,7 @@ export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
           });
         }
 
-        if (osConfig.isNotesEnabled) {
+        if (parsedConfig.isNotesEnabled) {
           injectRoute({
             pattern: "/notes",
             entrypoint: "@builder-os/astro/notes.astro",
@@ -63,7 +65,7 @@ export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
                 name: "@os",
                 resolveId: (id) => {
                   const virtualImports = [
-                    osConfig.travel ? "virtual:os/travel" : null,
+                    parsedConfig.travel ? "virtual:os/travel" : null,
                     "virtual:os/page",
                     "virtual:os/conditions",
                     "virtual:os/css",
@@ -80,39 +82,39 @@ export default function osAstroPlugin(osConfig: OSConfig): AstroIntegration {
                   // travel settings
                   if (id === resolveVirtualModuleId("virtual:os/travel")) {
                     return `export const travel = ${JSON.stringify(
-                      osConfig.travel
+                      parsedConfig.travel
                     )}`;
                   }
 
                   // user config
                   if (id === resolveVirtualModuleId("virtual:os/user-config")) {
                     return `export const user = ${JSON.stringify(
-                      osConfig.user
+                      parsedConfig.user
                     )}`;
                   }
 
                   // conditions
                   if (id === resolveVirtualModuleId("virtual:os/conditions")) {
                     return `export const conditions = ${JSON.stringify({
-                      isBioEnabled: osConfig.isBioEnabled,
-                      isProjectsEnabled: osConfig.isProjectsEnabled,
-                      isTravelEnabled: osConfig.isTravelEnabled,
-                      isMusicEnabled: osConfig.isMusicEnabled,
-                      isNotesEnabled: osConfig.isNotesEnabled,
+                      isBioEnabled: parsedConfig.isBioEnabled,
+                      isProjectsEnabled: parsedConfig.isProjectsEnabled,
+                      isTravelEnabled: parsedConfig.isTravelEnabled,
+                      isMusicEnabled: parsedConfig.isMusicEnabled,
+                      isNotesEnabled: parsedConfig.isNotesEnabled,
                     })}`;
                   }
 
                   // page settings
                   if (id === resolveVirtualModuleId("virtual:os/page")) {
                     return `export const page = ${JSON.stringify(
-                      osConfig.page
+                      parsedConfig.page
                     )}`;
                   }
 
                   // custom css styles
                   if (id === resolveVirtualModuleId("virtual:os/css")) {
                     return (
-                      osConfig.customCSS
+                      parsedConfig.customCSS
                         ?.map((filePath) => `import "${filePath}";`)
                         .join("") ?? ""
                     );

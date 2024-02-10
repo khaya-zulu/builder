@@ -67,9 +67,10 @@ const Component = isLink ? 'a' : "button"
         <div class="px-1 z-[2] card-header">
             <div
                 class:list={[
-                    "text-zcool rounded-lg group-hover:-translate-y-4 text-left transition-transform card-title",
+                    "text-zcool rounded-lg group-hover:-translate-y-4 text-left truncate transition-transform card-title",
                     delayRules
                 ]}
+                style="width: 80%"
             >
                 {title}
             </div>

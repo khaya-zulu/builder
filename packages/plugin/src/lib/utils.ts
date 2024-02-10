@@ -29,3 +29,26 @@ export const formatDate = (date: Date) => {
 
   return `${dayOfWeek}, ${day} ${month}`;
 };
+
+// get interval time hh:mm from date
+export const formatTime = (date: Date) => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
+};
+
+export const fetchWeather = async (coords: { lat: number; lng: number }) => {
+  const resp = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${
+      coords.lng
+    }&appid=${import.meta.env.OPEN_WEATHER_API_KEY}&units=metric`
+  );
+
+  if (resp.status !== 200) {
+    return undefined;
+  }
+
+  // documentation: https://openweathermap.org/current
+  return resp.json() as Promise<{ main: { temp: string } }>;
+};

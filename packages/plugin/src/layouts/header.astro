@@ -1,12 +1,10 @@
 ---
     import { user } from "virtual:os/user-config"
 
-    import { formatDate } from "../lib/utils"
-    
-    const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${user.coords.lat}&lon=${user.coords.long}&appid=${import.meta.env.OPEN_WEATHER_API_KEY}&units=metric`)
-    const data = await resp.json()
+    import { formatDate, fetchWeather } from "../lib/utils"
 
-    const { main: weather } = data
+    const data = await fetchWeather(user.coords)
+    const weather = data?.main
 ---
 
 <div class="flex justify-between px-10">

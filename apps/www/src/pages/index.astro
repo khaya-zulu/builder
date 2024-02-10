@@ -11,7 +11,7 @@ import Tape from "../assets/tape.png"
 
 let data = [] as { name: string, url: string, src: string }[];
 try {
-	const resp = await fetch(`${import.meta.env.WWW_BASE_URL}/showcase.json`);
+	const resp = await fetch(`${Astro.url.origin}/showcase.json`);
 	data = (await resp.json()).data;
 } catch(err: any) {
 	console.log("/showcase.json error", err.message)
@@ -19,7 +19,7 @@ try {
 ---
 
 <Layout title="Welcome to Astro." navigateTo="motivation">
-	<iframe class="md:h-[30rem] h-96 w-full mt-14 rounded-3xl" src="https://www.youtube.com/embed/gxBkghlglTg?si=VTHW1TlzjHgYIgX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	<iframe class="md:h-[30rem] h-96 w-full mt-14 rounded-3xl relative" src="https://www.youtube.com/embed/gxBkghlglTg?si=VTHW1TlzjHgYIgX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 	<div class="columns-1 md:columns-2 mt-2">
 		{
 			data.map((d) => (
