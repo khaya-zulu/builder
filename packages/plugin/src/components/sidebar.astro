@@ -108,6 +108,8 @@ const { active } = Astro.props
     // show scroll bar on page load, if it was hidden
     if (isScrollbarVisible) {
         enableDisableScrollbar(false)
+    } else if (elKbdScrollbarHint) {
+        elKbdScrollbarHint.innerHTML = "show scrollbar"
     }
 
     window.addEventListener("toggle-scrollbar", () => enableDisableScrollbar())
