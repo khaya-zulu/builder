@@ -43,7 +43,7 @@ const { active } = Astro.props
                                 <div id="plus-shift-s">+</div>
                                 <KeyboardButton key="s">s</KeyboardButton>
                             </div>
-                            <div id="kbd-scrollbar-hint" class="text-zcool">show scrollbar</div>
+                            <div id="kbd-scrollbar-hint" class="text-zcool">...</div>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,8 @@ const { active } = Astro.props
 </style>
 
 <script>
-    let isScrollbarHidden = localStorage.getItem("isScrollbarHidden") === "true"
+    // if localStorage is undefined, do not show the scrollbar
+    let isScrollbarVisible = localStorage.getItem("isScrollbarVisible") === "true"
 
     const elOverflowXs = document.getElementsByClassName("overflow-x-auto")
     const elOverflowYs = document.getElementsByClassName("overflow-y-auto")
@@ -96,16 +97,16 @@ const { active } = Astro.props
         toggleScrollbar(elOverflowXs)
         toggleScrollbar(elOverflowYs)
 
-        if (isScrollbarStateToggled) isScrollbarHidden = !isScrollbarHidden
+        if (isScrollbarStateToggled) isScrollbarVisible = !isScrollbarVisible
         if (elKbdScrollbarHint) {
-            elKbdScrollbarHint.innerText = isScrollbarHidden ? "show scrollbar" : "hide scrollbar"
+            elKbdScrollbarHint.innerText = isScrollbarVisible ? "hide scrollbar" : "show scrollbar" 
         }
 
-        localStorage.setItem("isScrollbarHidden", isScrollbarHidden.toString())
+        localStorage.setItem("isScrollbarVisible", isScrollbarVisible.toString())
     }
 
     // show scroll bar on page load, if it was hidden
-    if (!isScrollbarHidden) {
+    if (isScrollbarVisible) {
         enableDisableScrollbar(false)
     }
 
