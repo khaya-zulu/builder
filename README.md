@@ -142,3 +142,5 @@ If you deploy your site to Vercel, you can also enable analytics, by following t
 Ensure the "Astro" framework is selected in the documentation page.
 
 ![Astro/Vercel Analytics](/vercel-analytics-astro.png)
+
+> Note: in the docs, the `outputs` field, in the `astro.config.mjs` is set to "server". Which leads to some of the images (e.g. sidebar buttons) not being rendered. To fix this, change the `outputs` field to "hybrid".
