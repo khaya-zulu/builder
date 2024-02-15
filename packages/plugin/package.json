@@ -1,7 +1,7 @@
 {
   "name": "@builder-os/astro",
   "main": "src/index.ts",
-  "version": "0.4.6",
+  "version": "0.5.6",
   "license": "MIT",
   "description": "An Astro plugin for developers/hackers to build their personal site",
   "scripts": {
@@ -21,10 +21,10 @@
   },
   "homepage": "https://https://builderos.dev",
   "peerDependencies": {
-    "astro": "^4.3.2"
+    "astro": "^4.4.0"
   },
   "dependencies": {
-    "astro": "^4.3.2"
+    "astro": "^4.4.0"
   },
   "devDependencies": {
     "typescript": "latest",

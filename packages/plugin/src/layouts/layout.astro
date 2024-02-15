@@ -96,4 +96,22 @@ const { title, active = "bio", ogImage, ogTitle, ogDescription } = Astro.props a
     .footer-icon > div {
         background-color: var(--os-footer-icon-background-color);
     }
+
+	.cover-loading img {
+        opacity: 0;
+    }
+
+    .cover-loading {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;   
+        background-color: var(--os-card-loading-background-color);
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: .5;
+        }
+    }
 </style>
