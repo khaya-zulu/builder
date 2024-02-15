@@ -30,6 +30,7 @@ const { title, navigateTo = "motivation" } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="The internet profile for developers." />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="og:image" content="/og-image.png" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -47,12 +48,12 @@ const { title, navigateTo = "motivation" } = Astro.props;
 					<div class="relative group rounded-full">
 						<Image src={BookSvg} alt="Astro logo" class="w-8 h-8 rotate-6 absolute -bottom-5 right-10 group-hover:hidden" />
 						<Image src={BookmarkSvg} alt="Astro logo" class="w-8 h-8 rotate-[186deg] absolute -bottom-5 right-10 hidden group-hover:block" />
-						<a href="" rel="noopener noreferrer" target="_blank" class="rounded-full relative bg-gradient-to-br from-[#f0ccb9] to-[#ffba92] hover:to-[#f0ccb9] hover:from-[#ffba92] px-6 py-3 flex gap-4 items-center">
+						<a href="https://discord.com/invite/XG7qBWD39T" rel="noopener noreferrer" target="_blank" class="rounded-full relative bg-gradient-to-br from-[#f0ccb9] to-[#ffba92] hover:to-[#f0ccb9] hover:from-[#ffba92] px-6 py-3 flex gap-4 items-center">
 							<Discord className='w-5 h-5' />
 							Discord
 						</a>
 					</div>
-					<a href="" rel="noopener noreferrer" target="_blank">
+					<a href="https://github.com/khaya-zulu/builder" rel="noopener noreferrer" target="_blank">
 						<Github className="w-5 h-5" />
 					</a>
 					<div class="h-5 w-[1px] bg-slate-400" />
