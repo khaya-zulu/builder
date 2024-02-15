@@ -27,7 +27,7 @@ const { Content } = render ? await render() : { Content: null }
 const delayRules = "ease-out delay-0 group-hover:delay-300 group-hover:ease-out"
 
 const isLink = Boolean(href)
-const Component = isLink ? 'a' : "button"
+const Component = isLink ? 'a' : "div"
 ---
 
 <Component
@@ -41,9 +41,12 @@ const Component = isLink ? 'a' : "button"
     _isClicked={"0"}
     _isClickDisabled={isLink || isClickDisabled}
     _meta={meta}
+    role="button"
+    tabindex={0}
     href={isLink ? href : undefined}
     target={isExternalLink ? "_blank" : undefined}
     rel={isLink ? "noopener noreferrer" : undefined}
+    onkeydown="onKeyDown(this, event)"
     onclick="onClick(this)"
 >
     <div style={`background-image: url("${Paper.src}")`} class="absolute left-0 top-0 w-full h-full z-[1] bg-paper" />
@@ -60,7 +63,9 @@ const Component = isLink ? 'a' : "button"
                     alt="cover image"
                 />
             </div>
-            <div class="card-content hidden opacity-0 px-1 text-left flex flex-col gap-4 h-[21rem] pr-10 overflow-y-auto hidden-scrollbar">
+            <div 
+                class="card-content hidden opacity-0 px-1 text-left flex flex-col gap-4 h-[21rem] pr-10 overflow-y-auto hidden-scrollbar"
+            >
                 {Content ? <Content components={{ img: Img, a: A }} /> : null}
             </div>
         </div>
@@ -104,9 +109,9 @@ const Component = isLink ? 'a' : "button"
         <div class="h-4 w-4 rounded-full bg-slate-200" />
         <div class="h-4 w-4 rounded-full bg-slate-200" />
 
-        <div class="h-4 w-4 rounded-full bg-red-500 flex justify-center items-center">
+        <button onclick="onXClick(this)" onkeydown="onKeyDown(this, event)" class="h-4 w-4 rounded-full bg-red-500 flex justify-center items-center">
             <X className="w-[10px] h-[10px] text-white" />
-        </div>
+        </button>
     </div>
 </Component>
 
@@ -130,6 +135,20 @@ const Component = isLink ? 'a' : "button"
         // @ts-ignore
         activeCard?.querySelector(".close-buttons")?.click()
     })
+    
+    // @ts-ignore create global function "onXClick"
+    window.onXClick = (elCard: HTMLElement) => {
+        // @ts-ignore
+        elCard.parentNode?.click()
+    }
+
+    // @ts-ignore create global function "onKeyDown"
+    window.onKeyDown = (elCard: HTMLElement, ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+            ev.preventDefault()
+            elCard.click()
+        }
+    }
 
     // @ts-ignore create global function "onCloseClick"
     window.onCloseClick = (elCard: HTMLElement) => {
