@@ -7,7 +7,7 @@ import PauseIcon from "./icons/pause.astro"
 
 let spotify: any = {};
 try {
-    const resp = await fetch(`${Astro.url.origin}/api/spotify`)
+    const resp = await fetch(`${import.meta.env.ORIGIN_URL}/api/spotify`)
     const data = await resp.json()
 
     if (data.type === "track") {
@@ -23,7 +23,7 @@ const isEmpty = Object.keys(spotify).length === 0
 {
     !isEmpty ? <div 
         class:list={[
-            "h-[27.5rem] w-[25rem] bg-white rounded-md group shadow-md border-white border-8 p-2 first:ml-10 relative inline-block align-top",
+            "h-[27.5rem] w-[25rem] bg-white rounded-xl group shadow-md border-white border-8 p-2 first:ml-10 relative inline-block align-top",
             "hover:mr-20 transition-all duration-200 delay-0 group-hover:delay-150 group-hover:ease-out",
         ]}
     >
