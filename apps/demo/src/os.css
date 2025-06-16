@@ -4,6 +4,10 @@ body {
 }
 
 :root {
+  /* general */
+  --os-link-color: #10b981;
+
+  /** footer */
   --os-footer-border-color: #bfc1c3;
   --os-footer-background-color: rgba(221, 214, 205, 0.4);
 
@@ -43,6 +47,10 @@ body {
 }
 
 :example {
+  /* general */
+  --os-link-color: #000;
+
+  /* footer */
   --os-footer-border-color: #bfc1c3;
   --os-footer-background-color: rgba(221, 214, 205, 0.4);
   --os-footer-text-color: #000;

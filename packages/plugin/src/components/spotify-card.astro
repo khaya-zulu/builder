@@ -34,7 +34,7 @@ const isEmpty = Object.keys(spotify).length === 0
                     id="song-cover"
                     src={spotify?.songCover}
                     class:list={[
-                        "w-[5rem] h-[5rem] object-cover rounded-md transition-[filter] shadow mx-auto mb-4 shadow-md",
+                        "w-[5rem] h-[5rem] object-cover rounded-xl transition-[filter] shadow mx-auto mb-4 shadow-md",
                     ]}
                     alt="cover image"
                 />
@@ -114,9 +114,11 @@ const isEmpty = Object.keys(spotify).length === 0
     const elSongArtists = document.getElementById("song-artists")
 
     if (elProgress && elDuration && elProgressBar && elSongCover && elSongName && elSongArtists) {
-        const duration = Number(elDuration?.getAttribute("_duration") ?? 0)
+        const duration = Number(elDuration?.getAttribute("_duration") || 0)
 
-        let progress = Number(elProgress?.getAttribute("_progress") ?? 0)
+        let progress = Number(elProgress?.getAttribute("_progress") || 0)
+
+        console.log("Spotify Card Loaded", { duration, progress })
 
         elProgress.innerHTML = `${analogTime(progress)}`
         elDuration.innerHTML = `${analogTime(duration)}`
@@ -127,12 +129,14 @@ const isEmpty = Object.keys(spotify).length === 0
             const resp = await fetch(`${window.origin}/api/spotify`)
             const spotify = await resp.json()
 
-            elSongCover.src = spotify?.songCover
-            elSongName.innerHTML = spotify?.songName
-            elSongArtists.innerHTML = spotify?.songArtists?.join(", ")
+            const spotifyPayload = spotify.payload ?? spotify
 
-            elDuration.innerHTML = `${analogTime(spotify.duration)}`
-            progress = spotify.progress
+            elSongCover.src = spotifyPayload?.songCover
+            elSongName.innerHTML = spotifyPayload?.songName
+            elSongArtists.innerHTML = spotifyPayload?.songArtists?.join(", ")
+
+            elDuration.innerHTML = `${analogTime(spotifyPayload.duration)}`
+            progress = spotifyPayload.progress ?? 0;
             elProgress.innerHTML = `${analogTime(progress)}`
 
             const animateDuration = duration - progress

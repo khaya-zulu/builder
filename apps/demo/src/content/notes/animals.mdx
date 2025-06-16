@@ -2,11 +2,60 @@
 title: Do giraffe lie down?
 publishedAt: 2019-08-01
 cover: /placeholder.jpg
-isPreview: true
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.
+# From Burnout to Breakthrough: How I Rediscovered Joy in Side Projects 🚴‍♂️
 
-Sodales neque sodales ut etiam sit amet nisl. Mauris a diam maecenas sed enim ut sem. Turpis tincidunt id aliquet risus feugiat in ante. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Facilisis leo vel fringilla est ullamcorper. Eu feugiat pretium nibh ipsum consequat nisl vel.
+![Cycling](https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?auto=format&fit=crop&w=1050&q=80)
 
-Enim eu turpis egestas pretium aenean pharetra magna ac. Imperdiet proin fermentum leo vel. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Tellus elementum sagittis vitae et leo duis ut diam. Lacus laoreet non curabitur gravida arcu ac. Nibh praesent tristique magna sit amet. Eu turpis egestas pretium aenean pharetra magna ac.
+For a while, I hit a wall. Building software felt like a chore. The joy I once had for side projects had disappeared into backlogs, sprint deadlines, and endless Zoom calls.
+
+But one weekend changed everything.
+
+---
+
+## The Problem: When Passion Becomes Pressure
+
+I used to spend evenings experimenting — building random things like a weather app that shouted forecasts in pirate speak. But slowly, side projects turned into "portfolio pieces," then into expectations.
+
+> _“Will this get me a job?”_ > _“Is this scalable?”_ > _“Should I add tests now or after MVP?”_
+
+These questions crushed my creativity. I stopped building for fun.
+
+---
+
+## The Shift: Build for Yourself
+
+Everything changed on a Saturday morning when I read this tweet from [@levelsio](https://twitter.com/levelsio):
+
+> _“The best ideas come when you're building what you need.”_
+
+That hit. Hard.
+
+So I asked myself:
+
+- What problem do **I** have?
+- What do **I** want to play with?
+- What if it’s just… fun?
+
+---
+
+## The Project: Ride Logger
+
+I'm an amateur cyclist. I track rides with my phone, but I always wanted a minimalist ride logger that just saved:
+
+- Time
+- Distance
+- Mood
+
+So I built it. No auth. No backend. Just a local PWA that stores data in `localStorage`.
+
+### A Peek into the Code
+
+```js
+const saveRide = (ride) => {
+  const existing = JSON.parse(localStorage.getItem("rides")) || [];
+  existing.push(ride);
+  localStorage.setItem("rides", JSON.stringify(existing));
+};
+```
